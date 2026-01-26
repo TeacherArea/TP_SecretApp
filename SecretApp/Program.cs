@@ -9,8 +9,6 @@ namespace SecretApp
         {
             Console.WriteLine("Välkommen till Secret App");
 
-            Console.WriteLine("Min structure branch");
-
             Menu();
 
             bool runProgram = true;
@@ -60,7 +58,17 @@ namespace SecretApp
         // TODO AddUser är inte klar
         static void AddUser()
         {
-            Console.WriteLine("Hello from AddUser()");
+            Console.WriteLine("Här kan du lägga till en användare");
+            Console.Write("Skriv användarens namn: ");
+            string name = Console.ReadLine();
+            Console.Write($"Skriv lösenordet för {name}: ");
+            string password = Console.ReadLine();
+
+            string[] tempNames = new string[userNames.Length + 1];
+            string[] tempPassword = new string[userPasswords.Length + 1];
+
+
+
         }
 
         static void ShowUsers()
