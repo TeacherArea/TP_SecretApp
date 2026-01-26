@@ -1,42 +1,131 @@
-﻿namespace SecretApp
+namespace SecretApp
 {
     internal class Program
     {
-        static void Main()
+        static string[] userNames = { "Pelle", "Stina", "Ali" };
+        static string[] userPasswords = { "1234", "12345", "123456" };
+
+        static void Main(string[] args)
         {
-            string[] names = { "Pelle", "Stina", "Ali" };
-            string[] passwords = { "secret1", "secret2", "secret3" };
+            Console.WriteLine("Välkommen till Secret App");
 
-            bool run = true;
+            Menu();
 
-            while (run)
+            bool runProgram = true;
+            while (runProgram)
             {
-                Console.WriteLine("\nThe SecretApp! Avsluta med \"Yes\". Vill du det?");
-                string userChoice = Console.ReadLine().ToLower();
-
-                if (userChoice != "yes")
+                if (int.TryParse(Console.ReadLine(), out int choice) )
                 {
-                    Console.Write("Skriv in ditt namn: ");
-                    string name = Console.ReadLine();
-                    Console.Write("Lösenord: ");
-                    string password = Console.ReadLine();
-
-                    if (name == names[0] && password == passwords[0])
+                    if (choice == 1)
                     {
-                        Console.WriteLine("Välkommen " + name);
-                        run = false;
+                        LoggIn();
                     }
-                    else
+
+                    else if (choice == 2)
                     {
-                        Console.WriteLine($"Namnet {name} med lösenordet {password} kunde inte hittas. Försök igen.");
+                        AddUser();
+                    }
+
+                    else if (choice == 3)
+                    {
+                        ChangePassword();
+                    }
+
+                    else if (choice == 4)
+                    {
+                        ShowUsers();
+                    }
+
+                    else if (choice == 9)
+                    {
+                        Menu();
+                    }
+
+                    else if (choice == 0)
+                    {
+                        runProgram = false;
                     }
                 }
                 else
                 {
-                    run = false;
+                    Console.WriteLine("Något blev fel. Välj i menyn (Skriv 9 för att visa menyn).");
                 }
             }
-            Console.WriteLine("Tack för att du använde denna app. Hej då!");
+            Console.WriteLine("Hej då");
+            Thread.Sleep(3000);
+        }
+
+        // TODO AddUser är inte klar
+        static void AddUser()
+        {
+            Console.WriteLine("Hello from AddUser()");
+        }
+
+        static void ShowUsers()
+        {
+            int i = 0;
+            while(i < userNames.Length )
+            {
+                Console.WriteLine(userNames[i].ToUpper());
+                i++;
+            }
+        }
+
+        static void LoggIn()
+        {
+            Console.WriteLine("Inloggning");
+            Console.Write("Namn: ");
+            string name = Console.ReadLine();
+            Console.Write("Lösenord: ");
+            string password = Console.ReadLine();
+
+            int i = 0;
+            while (i < userNames.Length)
+            {
+                if (userNames[i] == name)
+                {
+                    if (userPasswords[i] == password)
+                    {
+                        Console.WriteLine("Välkommen " + name);
+                        //Thread.Sleep(3000);
+                        break;
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Felaktigt lösenord");
+                    }
+                }
+                i++;
+            }
+
+            if(Array.IndexOf(userNames, name)  == -1)
+            {
+                Console.WriteLine("Inget sådant namn finns i listan. För att lägga till en avändare, välj i menyn.");
+            }
+
+            Menu();
+        }
+
+        // TODO ChangePssword är inte klar
+        static void ChangePassword()
+        {
+            Console.WriteLine("Hello från Change Password");
+        }
+
+        static void Menu()
+        {
+            Console.WriteLine(
+                "\n* * * * * * * * * * *\n\n" +
+                "Meny\n\n" +
+                "1. Logga in\n" +
+                "2. Lägg till användare\n" +
+                "3. Ändra lösenord\n" +
+                "4. Visa Användarlistan\n" +
+                "9. Visa menyn\n" +
+                "0. Avsluta\n\n" +
+                "* * * * * * * * * * *\n"
+                );
         }
     }
 }
