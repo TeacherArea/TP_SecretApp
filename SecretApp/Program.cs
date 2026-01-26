@@ -9,6 +9,8 @@ namespace SecretApp
         {
             Console.WriteLine("Välkommen till Secret App");
 
+            Console.WriteLine("Min structure branch");
+
             Menu();
 
             bool runProgram = true;
