@@ -112,6 +112,7 @@ namespace SecretApp
             }
         }
 
+        // TODO Ändra så att enbart inloggade kan använda AddUser().
         static void AddUser()
         {
             bool run = true;
@@ -150,6 +151,7 @@ namespace SecretApp
             }
         }
 
+        // TODO Ändra så att enbart vissa inloggade kan använda DeleteUser().
         static void DeleteUser()
         {
             bool run = true;
@@ -213,7 +215,7 @@ namespace SecretApp
             }
         }
 
-        // TODO ChangePassword är inte klar
+        // TODO Gör klart ChangePassword
         static void ChangePassword()
         {
             Console.WriteLine("Hello från Change Password");
@@ -235,6 +237,8 @@ namespace SecretApp
                 );
         }
 
+
+        // TODO Använd NotLoggedInMessage() i en else, för de som försöker nå en metod utan att vara inloggade
         static void NotLoggedInMessage()
         {
             Console.WriteLine("Du har inte access till denna funktionalitet. Logga in först.");
