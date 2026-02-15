@@ -66,39 +66,10 @@ namespace SecretApp
             Thread.Sleep(3000);
         }
 
+        // TODO LoggIn är inte klar
         static void LoggIn()
         {
-            Console.Clear();
-            Console.WriteLine("Inloggning\n");
-            Console.Write("Namn: ");
-            string name = Console.ReadLine();
-            Console.Write("Lösenord: ");
-            string password = Console.ReadLine();
-
-            int i = 0;
-            while (i < userNames.Length)
-            {
-                if (userNames[i] == name)
-                {
-                    if (userPasswords[i] == password)
-                    {
-                        Console.WriteLine("Välkommen " + name);
-                        userLoggedIn = true;
-                        break;
-                    }
-
-                    else
-                    {
-                        Console.WriteLine("Felaktigt lösenord");
-                    }
-                }
-                i++;
-            }
-
-            if (Array.IndexOf(userNames, name) == -1)
-            {
-                Console.WriteLine("Inget sådant namn finns i listan. För att lägga till en avändare, välj i menyn.");
-            }
+            Console.WriteLine("Hello från LoggIn().");
         }
 
         // TODO AddUser är inte klar
@@ -115,27 +86,13 @@ namespace SecretApp
 
         static void ShowUsers()
         {
-            if (userLoggedIn)
-            {
-                Console.Clear();
-                Console.WriteLine("Alla namn i listan:\n");
-                int i = 0;
-                while (i < userNames.Length)
-                {
-                    Console.WriteLine(userNames[i].ToUpper());
-                    i++;
-                }
-            }
-            else
-            {
-                NotLoggedInMessage();
-            }
+            Console.WriteLine("Hello from ShowUser()");
         }
 
         // TODO ChangePssword är inte klar
         static void ChangePassword()
         {
-            Console.WriteLine("Hello från Change Password");
+            Console.WriteLine("Hello från ChangePassword()");
         }
 
         static void Menu()
@@ -152,11 +109,6 @@ namespace SecretApp
                 "0. Avsluta / logga ut\n\n" +
                 "* * * * * * * * * * *\n"
                 );
-        }
-
-        static void NotLoggedInMessage()
-        {
-            Console.WriteLine("Du har inte access till denna funktionalitet. Logga in först.");
         }
     }
 }
