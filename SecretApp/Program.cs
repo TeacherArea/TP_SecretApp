@@ -1,9 +1,11 @@
+using System.Diagnostics;
+
 namespace SecretApp
 {
     internal class Program
     {
-        static string[] userNames = { "Pelle", "Stina", "Ali" };
-        static string[] userPasswords = { "1234", "12345", "123456" };
+        static string[] userNamesArray = { "Pelle", "Stina", "Ali" };
+        static string[] userPasswordArray = { "1234", "12345", "123456" };
         static bool userLoggedIn = false;
 
         static void Main(string[] args)
@@ -79,19 +81,17 @@ namespace SecretApp
 
         static void LoggIn()
         {
-            Console.Clear();
-            Console.WriteLine("Inloggning\n");
             Console.Write("Namn: ");
             string name = Console.ReadLine();
             Console.Write("Lösenord: ");
             string password = Console.ReadLine();
 
             int i = 0;
-            while (i < userNames.Length)
+            while (i < userNamesArray.Length)
             {
-                if (userNames[i] == name)
+                if (userNamesArray[i] == name)
                 {
-                    if (userPasswords[i] == password)
+                    if (userPasswordArray[i] == password)
                     {
                         Console.WriteLine("Välkommen " + name);
                         userLoggedIn = true;
@@ -106,44 +106,114 @@ namespace SecretApp
                 i++;
             }
 
-            if (Array.IndexOf(userNames, name) == -1)
+            if (Array.IndexOf(userNamesArray, name) == -1) // Array.IndexOf returnerar -1 om den inte hittar en match
             {
                 Console.WriteLine("Inget sådant namn finns i listan. För att lägga till en avändare, välj i menyn.");
             }
         }
 
-        // TODO AddUser är inte klar
         static void AddUser()
         {
-            Console.WriteLine("Hello from AddUser()");
+            bool run = true;
+            while (run)
+            {
+                Console.Write("Namn: ");
+                string name = Console.ReadLine();
+                Console.Write("Lösenord: ");
+                string password = Console.ReadLine();
+
+                string[] userNamesTemp = new string[userNamesArray.Length + 1];
+                string[] userPasswordsTemp = new string[userPasswordArray.Length + 1];
+
+                if (!String.IsNullOrWhiteSpace(name) && !String.IsNullOrWhiteSpace(password))
+                {
+                    int i = 0;
+                    while (i < userNamesArray.Length)
+                    {
+
+                        userNamesTemp[i] = userNamesArray[i];
+                        userPasswordsTemp[i] = userPasswordArray[i];
+                        i++;
+                    }
+                    userNamesTemp[userNamesTemp.Length - 1] = name;
+                    userPasswordsTemp[userPasswordsTemp.Length - 1] = password;
+
+                    userNamesArray = userNamesTemp;
+                    userPasswordArray = userPasswordsTemp;
+
+                    run = false;
+                }
+                else
+                {
+                    EmptyInputsMessage();
+                }
+            }
         }
 
-        // TODO DeleteUser är inte klar
         static void DeleteUser()
         {
-            Console.WriteLine("Hello from DeleteUser()");
+            bool run = true;
+            while (run)
+            {
+                Console.Write("Namn: ");
+                string name = Console.ReadLine();
+
+                int hit = Array.IndexOf(userNamesArray, name);
+
+                if (!String.IsNullOrWhiteSpace(name) && hit != -1)
+                {
+                    string[] userNamesTemp = new string[userNamesArray.Length - 1];
+                    string[] userPasswordsTemp = new string[userPasswordArray.Length - 1];
+
+                    int i = 0;
+                    int j = 0;
+                    while (i < userNamesArray.Length)
+                    {
+                        if (i == hit)
+                        {
+                            i++;
+                            continue;
+                        }
+                        userNamesTemp[j] = userNamesArray[i];
+                        userPasswordsTemp[j] = userPasswordArray[i];
+                        i++;
+                        j++;
+                    }
+                    userNamesArray = userNamesTemp;
+                    userPasswordArray = userPasswordsTemp;
+
+                    run = false;
+                }
+                else
+                {
+                    EmptyInputsMessage();
+                }
+            }
         }
 
         static void ShowUsers()
         {
             if (userLoggedIn)
             {
-                Console.Clear();
-                Console.WriteLine("Alla namn i listan:\n");
                 int i = 0;
-                while (i < userNames.Length)
+                while (i < userNamesArray.Length)
                 {
-                    Console.WriteLine(userNames[i].ToUpper());
+                    Console.WriteLine($"Användare: {userNamesArray[i].ToUpper()}. Lösenord: {userPasswordArray[i]}");
                     i++;
                 }
             }
             else
             {
-                NotLoggedInMessage();
+                int i = 0;
+                while (i < userNamesArray.Length)
+                {
+                    Console.WriteLine(userNamesArray[i].ToUpper());
+                    i++;
+                }
             }
         }
 
-        // TODO ChangePssword är inte klar
+        // TODO ChangePassword är inte klar
         static void ChangePassword()
         {
             Console.WriteLine("Hello från Change Password");
@@ -168,6 +238,11 @@ namespace SecretApp
         static void NotLoggedInMessage()
         {
             Console.WriteLine("Du har inte access till denna funktionalitet. Logga in först.");
+        }
+
+        static void EmptyInputsMessage()
+        {
+            Console.WriteLine("Antingen så har du glömt skriva in ditt namn eller ditt lösenord. Försök igen!");
         }
     }
 }
