@@ -18,31 +18,42 @@ namespace SecretApp
                 {
                     if (choice == 1)
                     {
+                        Console.Clear();
+                        Console.WriteLine("INLOGGNING\n");
                         LoggIn();
                     }
 
                     else if (choice == 2)
                     {
+                        Console.Clear();
+                        Console.WriteLine("LÄGG TILL ANVÄNDARE\n");
                         AddUser();
                     }
 
                     else if (choice == 3)
                     {
+                        Console.Clear();
+                        Console.WriteLine("TA BORT ANVÄNDARE\n");
                         DeleteUser();
                     }
 
                     else if (choice == 4)
                     {
+                        Console.Clear();
+                        Console.WriteLine("ÄNDRA LÖSENORD\n");
                         ChangePassword();
                     }
 
                     else if (choice == 5)
                     {
+                        Console.Clear();
+                        Console.WriteLine("ANVÄNDARLISTA\n");
                         ShowUsers();
                     }
 
                     else if (choice == 9)
                     {
+                        Console.Clear();
                         Menu();
                     }
 
@@ -62,7 +73,7 @@ namespace SecretApp
                     Console.WriteLine("Välj ett heltal ur menyn.");
                 }
             }
-            Console.WriteLine("Tack för att du använder mitt program. Hej då");
+            Console.WriteLine("Tack för att du använder Secret App. Välkommen tillbaka!");
             Thread.Sleep(3000);
         }
 
