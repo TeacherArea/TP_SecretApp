@@ -4,19 +4,17 @@ namespace SecretApp
     {
         static string[] userNames = { "Pelle", "Stina", "Ali" };
         static string[] userPasswords = { "1234", "12345", "123456" };
+        static bool userLoggedIn = false;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Välkommen till Secret App");
 
-            Console.WriteLine("Min structure branch");
-
-            Menu();
-
             bool runProgram = true;
             while (runProgram)
             {
-                if (int.TryParse(Console.ReadLine(), out int choice) )
+                Menu();
+                if (int.TryParse(Console.ReadLine(), out int choice))
                 {
                     if (choice == 1)
                     {
@@ -30,10 +28,15 @@ namespace SecretApp
 
                     else if (choice == 3)
                     {
-                        ChangePassword();
+                        DeleteUser();
                     }
 
                     else if (choice == 4)
+                    {
+                        ChangePassword();
+                    }
+
+                    else if (choice == 5)
                     {
                         ShowUsers();
                     }
@@ -47,35 +50,26 @@ namespace SecretApp
                     {
                         runProgram = false;
                     }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Någon sådan funktion finns inte än. Välj korrekt heltal i menyn.");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Något blev fel. Välj i menyn (Skriv 9 för att visa menyn).");
+                    Console.Clear();
+                    Console.WriteLine("Välj ett heltal ur menyn.");
                 }
             }
-            Console.WriteLine("Hej då");
+            Console.WriteLine("Tack för att du använder mitt program. Hej då");
             Thread.Sleep(3000);
-        }
-
-        // TODO AddUser är inte klar
-        static void AddUser()
-        {
-            Console.WriteLine("Hello from AddUser()");
-        }
-
-        static void ShowUsers()
-        {
-            int i = 0;
-            while(i < userNames.Length )
-            {
-                Console.WriteLine(userNames[i].ToUpper());
-                i++;
-            }
         }
 
         static void LoggIn()
         {
-            Console.WriteLine("Inloggning");
+            Console.Clear();
+            Console.WriteLine("Inloggning\n");
             Console.Write("Namn: ");
             string name = Console.ReadLine();
             Console.Write("Lösenord: ");
@@ -89,7 +83,7 @@ namespace SecretApp
                     if (userPasswords[i] == password)
                     {
                         Console.WriteLine("Välkommen " + name);
-                        //Thread.Sleep(3000);
+                        userLoggedIn = true;
                         break;
                     }
 
@@ -101,12 +95,41 @@ namespace SecretApp
                 i++;
             }
 
-            if(Array.IndexOf(userNames, name)  == -1)
+            if (Array.IndexOf(userNames, name) == -1)
             {
                 Console.WriteLine("Inget sådant namn finns i listan. För att lägga till en avändare, välj i menyn.");
             }
+        }
 
-            Menu();
+        // TODO AddUser är inte klar
+        static void AddUser()
+        {
+            Console.WriteLine("Hello from AddUser()");
+        }
+
+        // TODO DeleteUser är inte klar
+        static void DeleteUser()
+        {
+            Console.WriteLine("Hello from DeleteUser()");
+        }
+
+        static void ShowUsers()
+        {
+            if (userLoggedIn)
+            {
+                Console.Clear();
+                Console.WriteLine("Alla namn i listan:\n");
+                int i = 0;
+                while (i < userNames.Length)
+                {
+                    Console.WriteLine(userNames[i].ToUpper());
+                    i++;
+                }
+            }
+            else
+            {
+                NotLoggedInMessage();
+            }
         }
 
         // TODO ChangePssword är inte klar
@@ -122,12 +145,18 @@ namespace SecretApp
                 "Meny\n\n" +
                 "1. Logga in\n" +
                 "2. Lägg till användare\n" +
-                "3. Ändra lösenord\n" +
-                "4. Visa Användarlistan\n" +
+                "3. Ta bort användare\n" +
+                "4. Ändra lösenord\n" +
+                "5. Visa användarlistan\n" +
                 "9. Visa menyn\n" +
-                "0. Avsluta\n\n" +
+                "0. Avsluta / logga ut\n\n" +
                 "* * * * * * * * * * *\n"
                 );
+        }
+
+        static void NotLoggedInMessage()
+        {
+            Console.WriteLine("Du har inte access till denna funktionalitet. Logga in först.");
         }
     }
 }
